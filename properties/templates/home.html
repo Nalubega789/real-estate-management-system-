@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="text-center mb-4">Available Apartments in Nairobi</h2>
+<div class="row">
+  {% for apartment in apartments %}
+  <div class="col-md-4 mb-3">
+    <div class="card shadow-sm">
+      <img src="{{ apartment.image.url }}" class="card-img-top" alt="{{ apartment.title }}">
+      <div class="card-body">
+        <h5 class="card-title">{{ apartment.title }}</h5>
+        <p class="card-text text-muted">{{ apartment.location }}</p>
+        <p class="fw-bold">Ksh {{ apartment.price }}</p>
+        <a href="{% url 'apartment_detail' apartment.id %}" class="btn btn-primary w-100">View Details</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

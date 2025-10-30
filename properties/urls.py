@@ -1,7 +1,8 @@
-from django.urls import path
-from . import views
+from django.contrib import admin
+from django.urls import path, include
+from . import views 
 
 urlpatterns = [
-    path('', views.index, name='users_home'),
+    path('', views.apartment_list, name='apartment_list'),
+    path('apartments/<int:pk>/', views.apartment_detail, name='apartment_detail'),
 ]
-
