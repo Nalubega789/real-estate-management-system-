@@ -1,3 +1,5 @@
+git add Agent/ Inquiry/
+git add Agent/ Inquiry/
 
 from django.contrib import admin
 from .models import Agent
