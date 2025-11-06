@@ -10,8 +10,8 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('properties/', include('properties.urls')),
     path('listings/', include('listings.urls')),
-    path('agents/', include('agents.urls')),
-    path('inquiries/', include('inquiries.urls')),
+    path('Agent/', include('Agent.urls')),
+    path('Inquiry/', include('Inquiry.urls')),
     path('bookings/', include('bookings.urls')),
 
     path('', home, name='home'),

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Agent List</title>
+</head>
+<body>
+    <h1>Agent List</h1>
+
+    <ul>
+    {% for agent in agents %}
+    <li>
+    <h2>{{ agent.name }}</h2>
+    <p>Email: {{ agent.email }}</p>
+    <p>Phone: {{ agent.phone }}</p>
+    </li>
+    {% empty %}
+    <li>No agents available.</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
