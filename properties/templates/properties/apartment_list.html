@@ -1,19 +1,201 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Property Listings</title>
-</head>
-<body>
-    <h1>Available Properties</h1>
+{% extends 'base.html' %}
 
-    {% if properties %}
-        <ul>
-        {% for property in properties %}
-            <li>{{ property.title }} — {{ property.location }} — ${{ property.price }}</li>
-        {% endfor %}
-        </ul>
+{% block title %}Available Apartments - LuxuryStay{% endblock %}
+
+{% block extra_css %}
+<style>
+    .apartments-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .page-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .page-title {
+        font-size: 3rem;
+        color: #2d3748;
+        margin-bottom: 1rem;
+    }
+
+    .page-subtitle {
+        font-size: 1.2rem;
+        color: #718096;
+    }
+
+    .apartments-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+
+    .apartment-card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+
+    .apartment-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    .apartment-image {
+        width: 100%;
+        height: 200px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4rem;
+        position: relative;
+    }
+
+    .status-badge {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: #48bb78;
+        color: white;
+        padding: 0.4rem 1rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+
+    .status-badge.unavailable {
+        background: #f56565;
+    }
+
+    .apartment-content {
+        padding: 1.5rem;
+    }
+
+    .apartment-title {
+        font-size: 1.5rem;
+        color: #2d3748;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+    }
+
+    .apartment-location {
+        color: #718096;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .apartment-price {
+        font-size: 1.8rem;
+        color: #667eea;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    .apartment-features {
+        display: flex;
+        gap: 1.5rem;
+        color: #4a5568;
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+    }
+
+    .feature {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+    }
+
+    .apartment-description {
+        color: #718096;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+    }
+
+    .view-details-btn {
+        display: inline-block;
+        background: #667eea;
+        color: white;
+        padding: 0.7rem 1.5rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: background 0.3s;
+    }
+
+    .view-details-btn:hover {
+        background: #5568d3;
+    }
+
+    .no-apartments {
+        text-align: center;
+        padding: 4rem 2rem;
+        color: #718096;
+        font-size: 1.2rem;
+    }
+
+    @media (max-width: 768px) {
+        .apartments-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="apartments-container">
+    <div class="page-header">
+        <h1 class="page-title">Available Properties</h1>
+        <p class="page-subtitle">Find your perfect home from our exclusive collection</p>
+    </div>
+
+    {% if apartments %}
+        <div class="apartments-grid">
+            {% for apartment in apartments %}
+                <div class="apartment-card">
+                    <div class="apartment-image">
+                        🏙️
+                        {% if apartment.available %}
+                            <span class="status-badge">Available</span>
+                        {% else %}
+                            <span class="status-badge unavailable">Booked</span>
+                        {% endif %}
+                    </div>
+                    <div class="apartment-content">
+                        <h2 class="apartment-title">{{ apartment.title }}</h2>
+                        <div class="apartment-location">📍 {{ apartment.location }}</div>
+                        <div class="apartment-price">KSh {{ apartment.price|floatformat:0 }}<span style="font-size: 1rem; color: #718096;">/month</span></div>
+                        
+                        <div class="apartment-features">
+                            <span class="feature">🛏️ {{ apartment.bedrooms }} Bed</span>
+                            <span class="feature">🚿 {{ apartment.bathrooms }} Bath</span>
+                        </div>
+
+                        <p class="apartment-description">
+                            {{ apartment.description|truncatewords:20 }}
+                        </p>
+
+                        <a href="{% url 'apartment_detail' apartment.pk %}" class="view-details-btn">View Details</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     {% else %}
-        <p>No properties found.</p>
+        <div class="no-apartments">
+            <h2>No properties found.</h2>
+            <p>Check back soon for new listings!</p>
+        </div>
     {% endif %}
-</body>
-</html>
+</div>
+{% endblock %}
