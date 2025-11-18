@@ -246,7 +246,7 @@
             <div class="apartment-header">
                 <h1 class="apartment-title">{{ apartment.name }}</h1>
                 <div class="apartment-location">📍 {{ apartment.location }}</div>
-                <div class="apartment-price">${{ apartment.price }}<span>/month</span></div>
+                <div class="apartment-price">KSh{{ apartment.price }}<span>/month</span></div>
             </div>
 
             <div class="features-grid">
@@ -260,16 +260,7 @@
                     <div class="feature-label">Bathrooms</div>
                     <div class="feature-value">{{ apartment.bathrooms }}</div>
                 </div>
-                <div class="feature-item">
-                    <div class="feature-icon">📏</div>
-                    <div class="feature-label">Square Feet</div>
-                    <div class="feature-value">{{ apartment.square_feet }}</div>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">🏢</div>
-                    <div class="feature-label">Floor</div>
-                    <div class="feature-value">{{ apartment.floor|default:"N/A" }}</div>
-                </div>
+                
             </div>
 
             <div class="description-section">

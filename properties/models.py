@@ -14,3 +14,13 @@ class Apartment(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Booking(models.Model):
+    apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE)  # Changed to lowercase
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_booked = models.DateTimeField(auto_now_add=True)
+    message = models.TextField(blank=True)
+
+    def __str__(self):
+        return f"{self.user.username} booked {self.apartment.title}"  # Changed to apartmentz
