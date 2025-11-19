@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact {{ agent.user.get_full_name }} - LuxuryStay{% endblock %}
+
+{% block content %}
+<a href="{% url 'agent_detail' agent.id %}" style="display: inline-block; margin-bottom: 2rem; color: #667eea; text-decoration: none; font-weight: 600;">← Back to Agent Profile</a>
+
+<div style="max-width: 700px; margin: 0 auto; background: white; padding: 3rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+    <div style="display: flex; align-items: center; gap: 1.5rem; padding: 1.5rem; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); border-radius: 8px; margin-bottom: 2rem;">
+        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white; font-weight: bold;">
+            {{ agent.user.first_name.0|default:agent.user.username.0 }}{{ agent.user.last_name.0|default:'' }}
+        </div>
+        <div>
+            <h2 style="color: #2c3e50; margin-bottom: 0.3rem;">{{ agent.user.get_full_name|default:agent.user.username }}</h2>
+            <p style="color: #667eea; font-weight: 600;">{{ agent.title }}</p>
+        </div>
+    </div>
+
+    <h1 style="color: #2c3e50; text-align: center; margin-bottom: 2rem;">📨 Send a Message</h1>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #34495e;">Your Full Name *</label>
+            <label>
+                <input type="text" name="name" style="width: 100%; padding: 1rem; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem;" required>
+            </label>
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #34495e;">Your Email *</label>
+            <label>
+            <input type="email" name="email" style="width: 100%; padding: 1rem; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem;" required>
+            </label>
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #34495e;">Your Message *</label>
+            <label>
+                <textarea name="message" style="width: 100%; padding: 1rem; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; height: 150px;" required></textarea>
+                </label>
+        </div>
+
+        <button type="submit" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1rem 2rem; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 600; cursor: pointer; width: 100%;">
+            Send Message
+        </button>
+    </form>
+</div>
+{% endblock %}

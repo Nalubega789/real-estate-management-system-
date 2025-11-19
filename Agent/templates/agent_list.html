@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Our Agents - LuxuryStay{% endblock %}
+
+{% block content %}
+<div style="max-width: 1200px; margin: 0 auto;">
+    <div style="text-align: center; margin-bottom: 3rem;">
+        <h1 style="color: #2c3e50; font-size: 2.5rem; margin-bottom: 0.5rem;">Meet Our Real Estate Experts</h1>
+        <p style="color: #7f8c8d; font-size: 1.2rem;">Professional agents dedicated to finding your dream home</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+        <div style="background: white; padding: 2rem; border-radius: 10px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <div style="font-size: 2.5rem; font-weight: bold; color: #667eea; margin-bottom: 0.5rem;">{{ agents|length }}</div>
+            <div style="color: #7f8c8d; font-weight: 600;">Total Agents</div>
+        </div>
+        <div style="background: white; padding: 2rem; border-radius: 10px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <div style="font-size: 2.5rem; font-weight: bold; color: #667eea; margin-bottom: 0.5rem;">{{ total_experience }}+</div>
+            <div style="color: #7f8c8d; font-weight: 600;">Years Experience</div>
+        </div>
+        <div style="background: white; padding: 2rem; border-radius: 10px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <div style="font-size: 2.5rem; font-weight: bold; color: #667eea; margin-bottom: 0.5rem;">{{ total_properties_sold }}</div>
+            <div style="color: #7f8c8d; font-weight: 600;">Properties Sold</div>
+        </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem;">
+        {% for agent in agents %}
+        <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem;">
+                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.5rem;">
+                    {{ agent.user.first_name.0|default:agent.user.username.0 }}{{ agent.user.last_name.0|default:'' }}
+                </div>
+                <div>
+                    <h3 style="color: #2c3e50; margin-bottom: 0.3rem;">{{ agent.user.get_full_name|default:agent.user.username }}</h3>
+                    <div style="color: #667eea; font-weight: 600; margin-bottom: 0.5rem;">{{ agent.title }}</div>
+                    <div style="color: #f39c12; font-weight: 600;">⭐ {{ agent.rating|floatformat:1 }}/5.0</div>
+                </div>
+            </div>
+
+            <div style="margin: 1.5rem 0;">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.8rem; color: #555;">
+                    📧 {{ agent.email }}
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.8rem; color: #555;">
+                    📞 {{ agent.phone }}
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.8rem; color: #555;">
+                    📅 {{ agent.years_experience }} years experience
+                </div>
+            </div>
+
+            {% if agent.bio %}
+            <div style="margin: 1.5rem 0; color: #7f8c8d; font-style: italic; line-height: 1.6;">
+                <p>{{ agent.bio|truncatewords:30 }}</p>
+            </div>
+            {% endif %}
+
+            <a href="{% url 'agent_detail' agent.id %}" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1rem 2rem; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; width: 100%; text-decoration: none; display: block; text-align: center;">
+                View Full Profile
+            </a>
+        </div>
+        {% empty %}
+        <div style="text-align: center; padding: 3rem; background: white; border-radius: 10px; color: #7f8c8d; grid-column: 1 / -1;">
+            <h3>No agents available at the moment.</h3>
+            <p>Please check back later or contact our office directly.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

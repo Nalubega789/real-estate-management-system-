@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 
+from django.core.management import templates
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -42,8 +44,8 @@ INSTALLED_APPS = [
     'users',
     'properties',
     'listings',
-    'agents',
-    'inquiries',
+    'Agent',
+    'Inquiry',
     'bookings',
 ]
 
@@ -61,18 +63,14 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'real_estate_management_system.urls'
 
 TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR/ "templates"],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
+    dict(BACKEND='django.template.backends.django.DjangoTemplates', DIRS=[BASE_DIR / "templates"], APP_DIRS=True,
+         OPTIONS={
+             'context_processors': [
+                 'django.template.context_processors.request',
+                 'django.contrib.auth.context_processors.auth',
+                 'django.contrib.messages.context_processors.messages',
+             ],
+         }),
 ]
 
 WSGI_APPLICATION = 'real_estate_management_system.wsgi.application'

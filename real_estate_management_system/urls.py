@@ -6,7 +6,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('properties.urls')),  # This will be our homepage
+    path('', include('properties.urls')),# This will be our homepage
+path('Inquiry/', include('Inquiry.urls')),
+    path('agents/', include('Agent.urls')),
 ]
 
 if settings.DEBUG:

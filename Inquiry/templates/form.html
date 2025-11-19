@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us - LuxuryStay{% endblock %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto; background: white; padding: 3rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <h1 style="color: #2c3e50; font-size: 2.5rem; margin-bottom: 0.5rem;">🏠 Contact Our Team</h1>
+        <p style="color: #7f8c8d; font-size: 1.1rem;">Ready to find your dream home? Get in touch!</p>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #34495e;">Full Name *</label>
+            {{ form.name }}
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #34495e;">Email Address *</label>
+            {{ form.email }}
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #34495e;">Your Message *</label>
+            {{ form.message }}
+        </div>
+
+        <button type="submit" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1.2rem 2rem; border: none; border-radius: 8px; font-size: 1.2rem; font-weight: 600; cursor: pointer; width: 100%;">
+            Send Inquiry
+        </button>
+    </form>
+
+    <div style="text-align: center; margin-top: 2rem; padding: 1.5rem; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); border-radius: 8px;">
+        <h3 style="color: #667eea; margin-bottom: 0.5rem;">📞 Contact Info</h3>
+        <p style="color: #7f8c8d; margin: 0.3rem 0;">Phone: (254) 797 332 824</p>
+        <p style="color: #7f8c8d; margin: 0.3rem 0;">Email: info@luxurystay.com</p>
+    </div>
+</div>
+{% endblock %}

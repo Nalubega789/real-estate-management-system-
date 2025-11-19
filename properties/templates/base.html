@@ -118,11 +118,10 @@
 
         .footer-content {
             max-width: 1200px;
-            margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
-            margin-bottom: 2rem;
+            margin: 0 auto 2rem;
         }
 
         .footer-section h3 {
@@ -175,9 +174,13 @@
     <header>
         <nav>
             <a href="{% url 'apartment_list' %}" class="logo">🏢 LuxuryStay</a>
+
             <ul class="nav-links">
                 <li><a href="{% url 'apartment_list' %}">Home</a></li>
                 <li><a href="{% url 'apartment_list' %}">Apartments</a></li>
+               <li><a href="{% url 'agent_list' %}" style="text-decoration: none; color:#ffffff; font-weight: bold;">
+                   Agents</a></li>
+             <li><a href="{% url 'inquiry_create' %}">Inquiries</a></li>
                 {% if user.is_authenticated %}
                     <li class="user-info">Welcome, {{ user.username }}</li>
                    
@@ -186,7 +189,7 @@
         </nav>
     </header>
 
-    <!-- Messages -->
+<ul>
     {% if messages %}
         <div class="messages">
             {% for message in messages %}

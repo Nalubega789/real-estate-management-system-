@@ -23,4 +23,6 @@ class Booking(models.Model):
     message = models.TextField(blank=True)
 
     def __str__(self):
-        return f"{self.user.username} booked {self.apartment.title}"  # Changed to apartmentz
+        return f"{self.user.username} booked {self.apartment.title}"  # Changed to apartments
+
+

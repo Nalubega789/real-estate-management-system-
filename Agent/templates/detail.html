@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ agent.user.get_full_name }} - LuxuryStay Agent{% endblock %}
+
+{% block content %}
+<div style="background: white; border-radius: 12px; padding: 3rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 2rem;">
+    <div style="display: flex; gap: 2rem; align-items: center; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 2px solid #ecf0f1;">
+        <div style="width: 150px; height: 150px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 4rem; color: white; font-weight: bold;">
+            {{ agent.user.first_name.0|default:agent.user.username.0 }}{{ agent.user.last_name.0|default:'' }}
+        </div>
+
+        <div>
+            <h1 style="color: #2c3e50; margin-bottom: 0.5rem;">{{ agent.user.get_full_name|default:agent.user.username }}</h1>
+            <div style="color: #667eea; font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem;">{{ agent.title }}</div>
+            <div style="color: #f39c12; font-size: 1.3rem; margin-bottom: 1rem;">⭐ {{ agent.rating|floatformat:1 }} / 5.0</div>
+
+            <div style="display: flex; gap: 2rem; margin-top: 1rem;">
+                <div style="background: #f8f9fa; padding: 1rem 1.5rem; border-radius: 8px;">
+                    <div style="font-size: 2rem; font-weight: bold; color: #667eea;">{{ agent.properties_sold }}</div>
+                    <div style="color: #7f8c8d; font-size: 0.9rem;">Properties Sold</div>
+                </div>
+                <div style="background: #f8f9fa; padding: 1rem 1.5rem; border-radius: 8px;">
+                    <div style="font-size: 2rem; font-weight: bold; color: #667eea;">{{ agent.years_experience }}</div>
+                    <div style="color: #7f8c8d; font-size: 0.9rem;">Years Experience</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if agent.bio %}
+    <div style="margin-bottom: 2rem;">
+        <h2 style="color: #2c3e50; font-size: 1.5rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #667eea;">About {{ agent.user.first_name|default:agent.user.username }}</h2>
+        <p style="color: #555; line-height: 1.8;">{{ agent.bio }}</p>
+    </div>
+    {% endif %}
+
+    {% if agent.specialization %}
+    <div style="margin-bottom: 2rem;">
+        <h2 style="color: #2c3e50; font-size: 1.5rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #667eea;">Specializations</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+            {% for spec in agent.specialization_list %}
+                <span style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem;">{{ spec }}</span>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <div>
+        <h2 style="color: #2c3e50; font-size: 1.5rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #667eea;">Get In Touch</h2>
+        <div style="background: #f8f9fa; padding: 2rem; border-radius: 8px;">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; font-size: 1.1rem;">
+                📧 <a href="mailto:{{ agent.email }}" style="color: #667eea; text-decoration: none;">{{ agent.email }}</a>
+            </div>
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; font-size: 1.1rem;">
+                📞 <a href="tel:{{ agent.phone }}" style="color: #667eea; text-decoration: none;">{{ agent.phone }}</a>
+            </div>
+
+            <a href="{% url 'contact_agent' agent.id %}" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1rem 2rem; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; margin-top: 1rem;">
+                📨 Send Message to {{ agent.user.first_name|default:"Agent" }}
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
