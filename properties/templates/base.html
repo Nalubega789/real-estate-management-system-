@@ -175,17 +175,27 @@
         <nav>
             <a href="{% url 'apartment_list' %}" class="logo">🏢 LuxuryStay</a>
 
-            <ul class="nav-links">
-                <li><a href="{% url 'apartment_list' %}">Home</a></li>
-                <li><a href="{% url 'apartment_list' %}">Apartments</a></li>
-               <li><a href="{% url 'agent_list' %}" style="text-decoration: none; color:#ffffff; font-weight: bold;">
-                   Agents</a></li>
-             <li><a href="{% url 'inquiry_create' %}">Inquiries</a></li>
-                {% if user.is_authenticated %}
-                    <li class="user-info">Welcome, {{ user.username }}</li>
-                   
-                {% endif %}
-            </ul>
+           <ul class="nav-links">
+    <li><a href="{% url 'home' %}">Home</a></li>
+    <li><a href="{% url 'apartment_list' %}">Apartments</a></li>
+    <li><a href="{% url 'agent_list' %}">Agents</a></li>
+    <li><a href="{% url 'inquiry_create' %}">Inquiries</a></li>
+    
+    {% if user.is_authenticated %}
+        <li class="user-info">Welcome, {{ user.username }}!</li>
+       <li>
+    <form method="POST" action="{% url 'logout' %}" style="display: inline; margin: 0;">
+        {% csrf_token %}
+        <button type="submit" style="background: none; border: none; color: white; cursor: pointer; font-weight: 500; font-size: inherit; font-family: inherit;">
+            Logout
+        </button>
+    </form>
+</li>
+    {% else %}
+        <li><a href="{% url 'login' %}">Login</a></li>
+        <li><a href="{% url 'register' %}">Register</a></li>
+    {% endif %}
+</ul>
         </nav>
     </header>
 

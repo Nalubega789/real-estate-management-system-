@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Project apps
-    'users',
+    
     'properties',
     'listings',
     'Agent',
